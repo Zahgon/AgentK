@@ -30,26 +30,10 @@ tools = [
 ]
 
 def reasoning(state: MessagesState):
-    print("software_engineer is thinking...")
-    messages = state['messages']
-    tooled_up_model = config.default_langchain_model.bind_tools(tools)
-    response = tooled_up_model.invoke(messages)
-    return {"messages": [response]}
+    pass
 
 def check_for_tool_calls(state: MessagesState) -> Literal["tools", END]:
-    messages = state['messages']
-    last_message = messages[-1]
-    
-    if last_message.tool_calls:
-        if not last_message.content.strip() == "":
-            print("software_engineer thought this:")
-            print(last_message.content)
-        print()
-        print("software_engineer is acting by invoking these tools:")
-        print([tool_call["name"] for tool_call in last_message.tool_calls])
-        return "tools"
-    
-    return END
+    pass
 
 acting = ToolNode(tools)
 
@@ -68,6 +52,4 @@ graph = workflow.compile()
 
 def software_engineer(task: str) -> str:
     """Creates, modifies, and deletes code, manages files, runs shell commands, and collaborates with other agents."""
-    return graph.invoke(
-        {"messages": [SystemMessage(system_prompt), HumanMessage(task)]}
-    )
+    pass

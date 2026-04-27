@@ -18,26 +18,10 @@ from tools.fetch_web_page_content import fetch_web_page_content
 tools = [duck_duck_go_web_search, fetch_web_page_content]
 
 def reasoning(state: MessagesState):
-    print("web_researcher is thinking...")
-    messages = state['messages']
-    tooled_up_model = config.default_langchain_model.bind_tools(tools)
-    response = tooled_up_model.invoke(messages)
-    return {"messages": [response]}
+    pass
 
 def check_for_tool_calls(state: MessagesState) -> Literal["tools", END]:
-    messages = state['messages']
-    last_message = messages[-1]
-    
-    if last_message.tool_calls:
-        if not last_message.content.strip() == "":
-            print("web_researcher thought this:")
-            print(last_message.content)
-        print()
-        print("web_researcher is acting by invoking these tools:")
-        print([tool_call["name"] for tool_call in last_message.tool_calls])
-        return "tools"
-    
-    return END
+    pass
 
 acting = ToolNode(tools)
 
@@ -56,6 +40,4 @@ graph = workflow.compile()
 
 def web_researcher(task: str) -> str:
     """Researches the web."""
-    return graph.invoke(
-        {"messages": [SystemMessage(system_prompt), HumanMessage(task)]}
-    )
+    pass

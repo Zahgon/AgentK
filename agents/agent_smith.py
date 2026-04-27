@@ -70,27 +70,10 @@ Here's a list of currently available agents:
 tools = utils.all_tool_functions()
 
 def reasoning(state: MessagesState):
-    print()
-    print("agent_smith is thinking...")
-    messages = state['messages']
-    tooled_up_model = config.default_langchain_model.bind_tools(tools)
-    response = tooled_up_model.invoke(messages)
-    return {"messages": [response]}
+    pass
 
 def check_for_tool_calls(state: MessagesState) -> Literal["tools", END]:
-    messages = state['messages']
-    last_message = messages[-1]
-    
-    if last_message.tool_calls:
-        if not last_message.content.strip() == "":
-            print("agent_smith thought this:")
-            print(last_message.content)
-        print()
-        print("agent_smith is acting by invoking these tools:")
-        print([tool_call["name"] for tool_call in last_message.tool_calls])
-        return "tools"
-    
-    return END
+    pass
 
 acting = ToolNode(tools)
 
@@ -108,6 +91,4 @@ graph = workflow.compile()
 
 def agent_smith(task: str) -> str:
     """Designs and implements new agents, each designed to play a unique role."""
-    return graph.invoke(
-        {"messages": [SystemMessage(system_prompt), HumanMessage(task)]}
-    )
+    pass

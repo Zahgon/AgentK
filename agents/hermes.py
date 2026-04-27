@@ -47,48 +47,16 @@ tools = [list_available_agents, assign_agent_to_task]
 
 def feedback_and_wait_on_human_input(state: MessagesState):
     # if messages only has one element we need to start the conversation
-    if len(state['messages']) == 1:
-        message_to_human = "What can I help you with?"
-    else:
-        message_to_human = state["messages"][-1].content
-    
-    print(message_to_human)
-
-    human_input = ""
-    while not human_input.strip():
-        human_input = input("> ")
-    
-    return {"messages": [HumanMessage(human_input)]}
+    pass
 
 def check_for_exit(state: MessagesState) -> Literal["reasoning", END]:
-    last_message = state['messages'][-1]
-    if last_message.content.lower() == "exit":
-        return END
-    else:
-        return "reasoning"
+    pass
 
 def reasoning(state: MessagesState):
-    print()
-    print("hermes is thinking...")
-    messages = state['messages']
-    tooled_up_model = config.default_langchain_model.bind_tools(tools)
-    response = tooled_up_model.invoke(messages)
-    return {"messages": [response]}
+    pass
 
 def check_for_tool_calls(state: MessagesState) -> Literal["tools", "feedback_and_wait_on_human_input"]:
-    messages = state['messages']
-    last_message = messages[-1]
-    
-    if last_message.tool_calls:
-        if not last_message.content.strip() == "":
-            print("hermes thought this:")
-            print(last_message.content)
-        print()
-        print("hermes is acting by invoking these tools:")
-        print([tool_call["name"] for tool_call in last_message.tool_calls])
-        return "tools"
-    else:
-        return "feedback_and_wait_on_human_input"
+    pass
 
 acting = ToolNode(tools)
 
@@ -111,10 +79,4 @@ graph = workflow.compile(checkpointer=utils.checkpointer)
 
 def hermes(uuid: str):
     """The orchestrator that interacts with the user to understand goals, plan out how agents can meet the goal, assign tasks, and coordinate the activities agents."""
-    print(f"Starting session with AgentK (id:{uuid})")
-    print("Type 'exit' to end the session.")
-
-    return graph.invoke(
-        {"messages": [SystemMessage(system_prompt)]},
-        config={"configurable": {"thread_id": uuid}}
-    )
+    pass
